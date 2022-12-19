@@ -8,7 +8,7 @@ using WebBlog.Services.Interfaces;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var connectionString = DataUtility.GetConnectionString(builder.Configuration);
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
@@ -18,11 +18,15 @@ builder.Services.AddIdentity<BlogUser, IdentityRole>(options => options.SignIn.R
 
 //custom services
 builder.Services.AddScoped<IImageService, ImageService>();
+builder.Services.AddScoped<IBlogPostService, BlogPostService>();
 
-
-builder.Services.AddControllersWithViews();
+builder.Services.AddMvc();
 
 var app = builder.Build();
+
+//callong managedata
+var scope = app.Services.CreateScope();
+await DataUtility.ManageDataAsync(scope.ServiceProvider);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

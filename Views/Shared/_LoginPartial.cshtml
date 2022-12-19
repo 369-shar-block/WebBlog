@@ -1,30 +1,39 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<BlogUser> SignInManager
 @inject UserManager<BlogUser> UserManager
-
 @{
-    BlogUser blogUser = await UserManager.GetUserAsync(User);
+    BlogUser user = await UserManager.GetUserAsync(User);
 }
-
-@*<ul class="navbar-nav">*@
 @if (SignInManager.IsSignedIn(User))
 {
-    <li>
-        <a  asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @blogUser.FullName!</a>
-    </li>
-    <li >
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-        </form>
+    <form id="logoutForm" class="d-none" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+    </form>
+    <li class="menu-item-has-children">
+        <a href="#">Hello, @user.FullName</a>
+        <ul class="axil-submenu" style="min-width: 0px !important;width: 100%">
+            <li>
+                <a class="hover-flip-item-wrapper" asp-area="Identity" asp-page="/Account/Manage/Index">
+                    <span class="hover-flip-item">
+                        <span data-text="Account">Account</span>
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a class="hover-flip-item-wrapper" href="#" onclick="document.getElementById('logoutForm').submit()">
+                    <span class="hover-flip-item">
+                        <span data-text="Logout">Logout</span>
+                    </span>
+                </a>
+            </li>
+        </ul>
     </li>
 }
 else
 {
-    <li >
-        <a  asp-area="Identity" asp-page="/Account/Register">Register</a>
+    <li>
+        <a asp-area="Identity" asp-page="/Account/Register">Register</a>
     </li>
-    <li >
-        <a  asp-area="Identity" asp-page="/Account/Login">Login</a>
+    <li>
+        <a asp-area="Identity" asp-page="/Account/Login">Login</a>
     </li>
 }
-@*</ul>*@
