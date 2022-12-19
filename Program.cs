@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using WebBlog.Data;
 using WebBlog.Models;
@@ -19,6 +20,7 @@ builder.Services.AddIdentity<BlogUser, IdentityRole>(options => options.SignIn.R
 //custom services
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IBlogPostService, BlogPostService>();
+builder.Services.AddScoped<IEmailSender, EmailService>();
 
 builder.Services.AddMvc();
 

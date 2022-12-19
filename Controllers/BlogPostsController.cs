@@ -50,7 +50,7 @@ namespace WebBlog.Controllers
                                          .Include(b => b.Comments)
                                              .ThenInclude(c => c.Author)
                                          .FirstOrDefaultAsync(m => m.Slug == slug);
-
+             
 
             if (blogPost == null)
             {
@@ -61,10 +61,11 @@ namespace WebBlog.Controllers
         }
 
         // GET: BlogPosts/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
-            return View();
+            ViewData["BlogPostTags"] = new MultiSelectList(await _blogPostService.GetTagsAsync(), "Id", "Name");
+            return View(new BlogPost());
         }
 
         // POST: BlogPosts/Create
@@ -72,7 +73,7 @@ namespace WebBlog.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Content,CategoryId,Abstract,IsDeleted,IsPublished,BlogPostImage")] BlogPost blogPost)
+        public async Task<IActionResult> Create([Bind("Id,Title,Content,CategoryId,Abstract,IsDeleted,IsPublished,BlogPostImage")] BlogPost blogPost, string? stringTags)
         {
 
             if (ModelState.IsValid)
@@ -98,9 +99,18 @@ namespace WebBlog.Controllers
 
                 _context.Add(blogPost);
                 await _context.SaveChangesAsync();
+
+
+                if (!string.IsNullOrEmpty(stringTags))
+                {
+                    await _blogPostService.AddTagsToBlogPostAsync(stringTags, blogPost.Id);
+
+                }
+
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", blogPost.CategoryId);
+            ViewData["BlogPostTags"] = new MultiSelectList(await _blogPostService.GetTagsAsync(), "Id", "Name");
             return View(blogPost);
         }
 
@@ -112,12 +122,15 @@ namespace WebBlog.Controllers
                 return NotFound();
             }
 
-            var blogPost = await _context.BlogPosts.FindAsync(id);
+            var blogPost = await _context.BlogPosts.Include(b => b.Tags).FirstOrDefaultAsync(b => b.Id == id);
             if (blogPost == null)
             {
                 return NotFound();
             }
+
+            IEnumerable<int> blogPostTags = blogPost.Tags.Select(t => t.Id);
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", blogPost.CategoryId);
+            ViewData["BlogPostTags"] = new MultiSelectList(await _blogPostService.GetTagsAsync(), "Id", "Name");
             return View(blogPost);
         }
 
@@ -126,7 +139,7 @@ namespace WebBlog.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Content,DateCreated,LastUpdated,CategoryId,Slug,Abstract,IsDeleted,IsPublished,ImageData,ImageType,BlogPostImage")] BlogPost blogPost)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Content,DateCreated,LastUpdated,CategoryId,Slug,Abstract,IsDeleted,IsPublished,ImageData,ImageType,BlogPostImage")] BlogPost blogPost, string? stringTags)
         {
             if (id != blogPost.Id)
             {
@@ -161,6 +174,15 @@ namespace WebBlog.Controllers
 
                     _context.Update(blogPost);
                     await _context.SaveChangesAsync();
+
+                    // Remove current tags
+                    await _blogPostService.RemoveAllBlogPostTagsAsync(blogPost.Id);
+
+                    if (!string.IsNullOrEmpty(stringTags))
+                    {
+                        await _blogPostService.AddTagsToBlogPostAsync(stringTags, blogPost.Id);
+
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {

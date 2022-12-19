@@ -155,8 +155,7 @@ namespace WebBlog.Services
                                                         .Include(b => b.Tags)
                                                         .ToListAsync();
 
-                // Can Be (" return blogPosts.Take(count).ToList(); ")
-                // Don't Excactly Need the (" .OrderByDescending(b => b.DateCreated) ") Part?!
+              
                 return blogPosts.OrderByDescending(b => b.DateCreated).Take(count).ToList();
             }
             catch (Exception)

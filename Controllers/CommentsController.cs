@@ -69,16 +69,16 @@ namespace WebBlog.Controllers
             if (ModelState.IsValid)
             {
                 comment.AuthorId = _userManager.GetUserId(User);
-                // DateCreated
                 comment.DateCreated = DateTime.UtcNow;
-                // BlogPostId ?! Did Line 76?!
-                // Slug
+   
 
                 _context.Add(comment);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Details", "BlogPosts", new { slug });
 
             }
+
+
             ModelState.AddModelError("Comments", "Comment must be at least 2 characters long!");
             return RedirectToAction("Details", "BlogPosts", new { slug });
         }
