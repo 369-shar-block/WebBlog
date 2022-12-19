@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using System.Drawing.Printing;
 using WebBlog.Data;
 using WebBlog.Models;
+using WebBlog.Services.Interfaces;
 
 namespace WebBlog.Controllers
 {
@@ -10,16 +13,19 @@ namespace WebBlog.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _context;
+        private readonly IBlogPostService _blogPostService;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context, IBlogPostService blogPostService)
         {
             _logger = logger;
             _context = context;
+            _blogPostService = blogPostService;
         }
 
         public async Task<IActionResult> Index()
         {
-            List<BlogPost> model =await  _context.BlogPosts.Include(b=> b.Comments).Include(b=> b.Category).OrderByDescending(b => b.DateCreated).ToListAsync();
+            List<BlogPost> model = (await _blogPostService.GetAllBlogPostsAsync()).Where(b => b.IsDeleted == false && b.IsPublished == true).ToList();
+
             return View(model);
         }
 

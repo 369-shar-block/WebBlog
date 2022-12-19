@@ -34,12 +34,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.Abstract)
             </th>
-            <th>
+          @*  <th>
                 @Html.DisplayNameFor(model => model.IsDeleted)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.IsPublished)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.ImageData)
             </th>
@@ -74,12 +74,12 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Abstract)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.IsDeleted)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.IsPublished)
-                </td>
+                </td>*@
                 <td>
                     <img src="@ImageService.ConvertByteArrayToFile(item.ImageData!, item.ImageType!,(int)DefaultImage.BlogPostImage)" class="img-fluid" />
                 </td>
@@ -90,7 +90,7 @@
                     @Html.DisplayFor(modelItem => item.Category.Name)
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                    <a asp-action="Details" asp-route-slug="@item.Slug">Details</a> 
                     @if (User.IsInRole("Administrator"))
                     {
                         <span>|</span>

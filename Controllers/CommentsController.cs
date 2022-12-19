@@ -62,21 +62,25 @@ namespace WebBlog.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,BlogPostId,Body")] Comment comment)
+        public async Task<IActionResult> Create([Bind("Id,BlogPostId,Body")] Comment comment, string? slug)
         {
             ModelState.Remove("AuthorId");
+
             if (ModelState.IsValid)
             {
                 comment.AuthorId = _userManager.GetUserId(User);
-                comment.DateCreated= DateTime.UtcNow;
-                //slug
+                // DateCreated
+                comment.DateCreated = DateTime.UtcNow;
+                // BlogPostId ?! Did Line 76?!
+                // Slug
+
                 _context.Add(comment);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Details", "BlogPosts", new {id = comment.BlogPostId});
+                return RedirectToAction("Details", "BlogPosts", new { slug });
+
             }
-            ViewData["AuthorId"] = new SelectList(_context.Users, "Id", "Id", comment.AuthorId);
-            ViewData["BlogPostId"] = new SelectList(_context.BlogPosts, "Id", "Content", comment.BlogPostId);
-            return View(comment);
+            ModelState.AddModelError("Comments", "Comment must be at least 2 characters long!");
+            return RedirectToAction("Details", "BlogPosts", new { slug });
         }
 
         // GET: Comments/Edit/5
