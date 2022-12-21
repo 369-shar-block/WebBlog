@@ -43,7 +43,7 @@
                                                     <h6 class="post-author-name">
                                                         <a class="hover-flip-item-wrapper" href="author.html">
                                                             <span class="hover-flip-item">
-                                                                <span data-text="Tushar Saini">Tushar Saini</span>
+                                                                <span data-text="@Model.Creator?.FullName">@Model.Creator?.FullName</span>
                                                             </span>
                                                         </a>
                                                     </h6>
@@ -117,7 +117,7 @@
                                     <h5 class="title">
                                         <a class="hover-flip-item-wrapper" href="#">
                                             <span class="hover-flip-item">
-                                                <span data-text="Tushar Saini">Tushar Saini</span>
+                                                <span data-text="@Model.Creator?.FullName">@Model.Creator?.FullName</span>
                                             </span>
                                         </a>
                                     </h5>
@@ -244,41 +244,6 @@
 <!-- End Post Single Wrapper  -->
 
 
-
-@*<h1>Details</h1>
-
-@if (User.Identity!.IsAuthenticated)
-{
-    <div class="row">
-        <div class="col-md-4">
-            <form asp-action="Create" asp-controller="Comments" method="post">
-                <input type="hidden" asp-for="Id" name="BlogPostId" />
-                <input type="hidden" asp-for="Slug" name="BlogPostId" />
-                <div class="form-group">
-                    <label class="control-label">Add a comment</label>
-                    <textarea name="Body" rows="3" class="form-control editor"></textarea>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
-                </div>
-            </form>
-        </div>
-    </div>
-}
-<div class="row">
-    <ul>
-        @foreach (Comment comment in Model.Comments)
-        {
-            <li>@Html.Raw(comment.Body)</li>
-        }
-    </ul>
-</div>
-
-
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>*@
 
 @section scripts{
     <script>

@@ -91,7 +91,7 @@
                 </td>
                 <td>
                     <a asp-action="Details" asp-route-slug="@item.Slug">Details</a> 
-                    @if (User.IsInRole("Administrator"))
+                    @if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
                     {
                         <span>|</span>
                         <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>

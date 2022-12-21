@@ -13,6 +13,9 @@ namespace WebBlog.Models
         public string? Title { get; set; }
 
         [Required]
+        public string? CreatorId { get; set; }
+
+        [Required]
         public string? Content { get; set; }
 
         [DataType(DataType.DateTime)]
@@ -47,5 +50,7 @@ namespace WebBlog.Models
 
         // Add a relationship to the Tag model
         public virtual ICollection<Tag> Tags { get; set; } = new HashSet<Tag>();
+
+        public virtual BlogUser? Creator { get; set; }
     }
 }

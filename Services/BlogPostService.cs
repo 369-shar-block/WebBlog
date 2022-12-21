@@ -86,6 +86,7 @@ namespace WebBlog.Services
                                                          .Include(b => b.Category)
                                                          .Include(b => b.Tags)
                                                          .OrderByDescending(b => b.DateCreated)
+                                                         .Include(b=> b.Creator)
                                                          .ToListAsync();
 
                 return blogPosts;
