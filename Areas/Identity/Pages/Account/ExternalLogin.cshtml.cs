@@ -78,6 +78,15 @@ namespace WebBlog.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
+            [Required]
+            [Display(Name = "First Name")]
+            [StringLength(50, ErrorMessage = "The {0} must be at least {2} and max {1} characters long.", MinimumLength = 2)]
+            public string FirstName { get; set; }
+
+            [Required]
+            [Display(Name = "Last Name")]
+            [StringLength(50, ErrorMessage = "The {0} must be at least {2} and max {1} characters long.", MinimumLength = 2)]
+            public string LastName { get; set; }
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -202,7 +211,12 @@ namespace WebBlog.Areas.Identity.Pages.Account
         {
             try
             {
-                return Activator.CreateInstance<BlogUser>();
+                BlogUser blogUser = Activator.CreateInstance<BlogUser>();
+
+                blogUser.FirstName = Input.FirstName;
+                blogUser.LastName = Input.LastName;
+
+                return blogUser;
             }
             catch
             {

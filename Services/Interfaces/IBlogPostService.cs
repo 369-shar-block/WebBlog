@@ -22,7 +22,7 @@ namespace WebBlog.Services.Interfaces
 
         public Task RemoveAllBlogPostTagsAsync(int blogPostId);
 
-        //public IEnumerable<BlogPost> SearchBlogPosts(string searchString);
+        public IEnumerable<BlogPost> SearchBlogPosts(string searchString);
 
         public Task<bool> ValidateSlugAsync(string title, int blogPostId);
     }

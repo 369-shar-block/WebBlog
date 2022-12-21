@@ -24,6 +24,14 @@ builder.Services.AddScoped<IEmailSender, EmailService>();
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
 
 
+
+//google auth
+builder.Services.AddAuthentication().AddGoogle(googleOptions =>
+{
+    googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"]?? Environment.GetEnvironmentVariable("ClientId")!;
+    googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"]?? Environment.GetEnvironmentVariable("ClientSecret")!;
+});
+
 builder.Services.AddMvc();
 
 var app = builder.Build();

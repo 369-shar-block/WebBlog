@@ -24,22 +24,26 @@ namespace WebBlog.Controllers
         }
 
         public async Task<IActionResult> Index(int? pageNum)
-        {// Was (" int pageSize = 5; ")
+        {
             int pageSize = 3;
             int page = pageNum ?? 1;
-
-            // Made this together with Jacob?!
-            /* List<BlogPost> model = await _context.BlogPosts
-												  .Include(b => b.Comments)
-												  .Include(b => b.Category)
-												  .OrderByDescending(b => b.DateCreated)
-												  .ToListAsync(); */
-
-            // Made this together with Antonio?! 11/8/2022
+            
             IPagedList<BlogPost> model = (await _blogPostService.GetAllBlogPostsAsync())
                                             .Where(b => b.IsDeleted == false && b.IsPublished == true)
                                             .ToPagedList(page, pageSize);
             return View(model);
+        }
+
+        public async Task<IActionResult> SearchIndex(string searchString, int? pageNum)
+        {
+            int pageSize = 3;
+            int page = pageNum ?? 1;
+
+            ViewData["SearchString"] = searchString;
+
+            IPagedList<BlogPost> model = _blogPostService.SearchBlogPosts(searchString).ToPagedList(page, pageSize);
+
+            return View(nameof(Index), model);
         }
 
         public IActionResult Privacy()

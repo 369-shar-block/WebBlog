@@ -11,6 +11,7 @@ using WebBlog.Data;
 using WebBlog.Extensions;
 using WebBlog.Models;
 using WebBlog.Services.Interfaces;
+using X.PagedList;
 
 namespace WebBlog.Controllers
 {
@@ -37,6 +38,7 @@ namespace WebBlog.Controllers
             var applicationDbContext = _context.BlogPosts.Include(b => b.Category);
             return View(await applicationDbContext.ToListAsync());
         }
+
 
         // GET: BlogPosts/Details/5
         [AllowAnonymous]

@@ -200,50 +200,50 @@ namespace WebBlog.Services
             }
         }
 
-        //public IEnumerable<BlogPost> SearchBlogPosts(string searchString)
-        //{
-        //    try
-        //    {
-        //        IEnumerable<BlogPost> blogPosts = new List<BlogPost>();
+        public IEnumerable<BlogPost> SearchBlogPosts(string searchString)
+        {
+            try
+            {
+                IEnumerable<BlogPost> blogPosts = new List<BlogPost>();
 
-        //        if (string.IsNullOrEmpty(searchString))
-        //        {
-        //            return blogPosts;
-        //        }
-        //        else
-        //        {
-        //            searchString = searchString.Trim().ToLower();
+                if (string.IsNullOrEmpty(searchString))
+                {
+                    return blogPosts;
+                }
+                else
+                {
+                    searchString = searchString.Trim().ToLower();
 
-        //            blogPosts = _context.BlogPosts.Where(b => b.Title!.ToLower().Contains(searchString) ||
-        //                                                   b.Abstract!.ToLower().Contains(searchString) ||
-        //                                                   b.Content!.ToLower().Contains(searchString) ||
-        //                                                   b.Category!.Name!.ToLower().Contains(searchString) ||
-        //                                                   b.Comments.Any(c => c.Body!.ToLower().Contains(searchString) ||
-        //                                                                     c.Author!.FirstName!.ToLower().Contains(searchString) ||
-        //                                                                     c.Author!.LastName!.ToLower().Contains(searchString)) ||
-        //                                                   b.Tags!.Any(t => t.Name!.ToLower().Contains(searchString)))
-        //                                            .Include(b => b.Comments)
-        //                                                .ThenInclude(c => c.Author)
-        //                                            .Include(b => b.Category)
-        //                                            .Include(b => b.Tags)
-        //                                            .Include(b => b.Creator)
-        //                                            .Where(b => b.IsDeleted == false && b.IsPublished == true)
-        //                                            .AsNoTracking()
-        //                                            .OrderByDescending(b => b.DateCreated)
-        //                                            .AsEnumerable();
-
-
-        //            return blogPosts;
-        //        }
+                    blogPosts = _context.BlogPosts.Where(b => b.Title!.ToLower().Contains(searchString) ||
+                                                           b.Abstract!.ToLower().Contains(searchString) ||
+                                                           b.Content!.ToLower().Contains(searchString) ||
+                                                           b.Category!.Name!.ToLower().Contains(searchString) ||
+                                                           b.Comments.Any(c => c.Body!.ToLower().Contains(searchString) ||
+                                                                             c.Author!.FirstName!.ToLower().Contains(searchString) ||
+                                                                             c.Author!.LastName!.ToLower().Contains(searchString)) ||
+                                                           b.Tags!.Any(t => t.Name!.ToLower().Contains(searchString)))
+                                                    .Include(b => b.Comments)
+                                                        .ThenInclude(c => c.Author)
+                                                    .Include(b => b.Category)
+                                                    .Include(b => b.Tags)
+                                                    .Include(b => b.Creator)
+                                                    .Where(b => b.IsDeleted == false && b.IsPublished == true)
+                                                    .AsNoTracking()
+                                                    .OrderByDescending(b => b.DateCreated)
+                                                    .AsEnumerable();
 
 
-        //    }
-        //    catch (Exception)
-        //    {
+                    return blogPosts;
+                }
 
-        //        throw;
-        //    }
-        //}
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
 
         public async Task<bool> ValidateSlugAsync(string title, int blogPostId)
         {
