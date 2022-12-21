@@ -6,6 +6,7 @@ using System.Drawing.Printing;
 using WebBlog.Data;
 using WebBlog.Models;
 using WebBlog.Services.Interfaces;
+using X.PagedList;
 
 namespace WebBlog.Controllers
 {
@@ -22,10 +23,22 @@ namespace WebBlog.Controllers
             _blogPostService = blogPostService;
         }
 
-        public async Task<IActionResult> Index()
-        {
-            List<BlogPost> model = (await _blogPostService.GetAllBlogPostsAsync()).Where(b => b.IsDeleted == false && b.IsPublished == true).ToList();
+        public async Task<IActionResult> Index(int? pageNum)
+        {// Was (" int pageSize = 5; ")
+            int pageSize = 3;
+            int page = pageNum ?? 1;
 
+            // Made this together with Jacob?!
+            /* List<BlogPost> model = await _context.BlogPosts
+												  .Include(b => b.Comments)
+												  .Include(b => b.Category)
+												  .OrderByDescending(b => b.DateCreated)
+												  .ToListAsync(); */
+
+            // Made this together with Antonio?! 11/8/2022
+            IPagedList<BlogPost> model = (await _blogPostService.GetAllBlogPostsAsync())
+                                            .Where(b => b.IsDeleted == false && b.IsPublished == true)
+                                            .ToPagedList(page, pageSize);
             return View(model);
         }
 

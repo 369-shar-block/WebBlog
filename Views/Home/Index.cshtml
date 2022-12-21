@@ -1,6 +1,9 @@
 ﻿@using WebBlog.Enums;
 @using WebBlog.Services.Interfaces
-@model IEnumerable<WebBlog.Models.BlogPost>
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+@using X.PagedList.Web.Common;
+@model IPagedList<WebBlog.Models.BlogPost>
 @inject IImageService ImageService
 @{
     ViewData["Title"] = "Home Page";
@@ -102,7 +105,14 @@
                     </div>
                     <!-- End Post List  -->
                 }
-
+                <div>
+                    <div>
+                        page @(Model.PageCount < Model.PageNumber ? 1: Model.PageNumber) of @Model.PageCount
+                    </div>
+                    <div>
+                        @Html.PagedListPager(Model, pageNum => Url.Action("Index", new {pageNum}))
+                    </div>
+                </div>
             </div>
             <div class="col-lg-4 col-xl-4 mt_md--40 mt_sm--40">
 
