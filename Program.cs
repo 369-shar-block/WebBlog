@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
 using WebBlog.Data;
 using WebBlog.Models;
 using WebBlog.Services;
@@ -34,6 +36,28 @@ builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 
 builder.Services.AddMvc();
 
+//add swagger
+builder.Services.AddSwaggerGen(c=>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "StarLink Blog API",
+        Version = "v1",
+        Description = "Serve up Blog Data using .Net6 Apis",
+        Contact = new OpenApiContact
+        {
+            Name = "Tushar",
+            Email = "sharcoder@gmail.com",
+            Url = new Uri("https://www.linkedin.com/in/tushar-saini-948402223/")
+        }
+    });
+
+    var xmlFileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFileName));
+
+});
+
+
 var app = builder.Build();
 
 //callong managedata
@@ -51,6 +75,18 @@ else
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "PublicAPI v1");
+    c.InjectStylesheet("/css/swagger.css");
+    c.InjectJavascript("/js/swagger.js");
+
+    c.DocumentTitle = "StarLink Blog Public API";
+});
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

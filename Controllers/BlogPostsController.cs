@@ -153,7 +153,7 @@ namespace WebBlog.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator, Moderator")]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Content,DateCreated,LastUpdated,CategoryId,Slug,Abstract,IsDeleted,IsPublished,ImageData,ImageType,BlogPostImage")] BlogPost blogPost, string? stringTags)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Content,CreatorId,DateCreated,LastUpdated,CategoryId,Slug,Abstract,IsDeleted,IsPublished,ImageData,ImageType,BlogPostImage")] BlogPost blogPost, string? stringTags)
         {
             if (id != blogPost.Id)
             {

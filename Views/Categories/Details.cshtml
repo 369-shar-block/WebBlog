@@ -1,42 +1,181 @@
-﻿@model WebBlog.Models.Category
-
+﻿@using WebBlog.Enums;
+@using WebBlog.Services.Interfaces
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+@using X.PagedList.Web.Common;
+@model IPagedList<WebBlog.Models.BlogPost>
+@inject IImageService ImageService
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Home Page";
 }
 
-<h1>Details</h1>
+<!-- Start Author Area  -->
+<div class="axil-author-area axil-author-banner bg-danger">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="about-author">
+                    <div class="media">
+                        <div class="thumbnail">
+                            <a href="#">
+                                <img src="~/assets/images/post-images/author/author-b1.png" alt="Author Images">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <div class="author-info">
+                                <h1 class="title"><a href="#">@Model.FirstOrDefault()?.Creator?.FullName</a></h1>
+                                <span class="b3 subtitle">Full Stack Softwar Developer</span>
+                            </div>
+                            <div class="content">
+                                <p class="b1 description">A 24 year old navigating through life. Here's the part of my life that makes me excited to get up everday'</p>
+                                <ul class="social-share-transparent size-md">
+                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-github"></i></a></li>
+                                    <li><a href="mailto:369shar@gmail.com"><i class="far fa-envelope"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Author Area  -->
+<!-- Start Post List Wrapper  -->
+<div class="axil-post-list-area axil-section-gap bg-color-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-title">
+                    <h2 class="title mb--40">Things I wrote</h2>
+                </div>
+            </div>
+            <div class="col-lg-8 col-xl-8">
+                @foreach (BlogPost post in Model)
+                {
+                    <!-- Start Post List  -->
+                    <div class="content-block post-list-view mt--30">
+                        <div class="post-thumbnail">
+                            <a asp-controller="BlogPosts" asp-action="Details" asp-route-id="@post.Id">
+                                <img src="@ImageService.ConvertByteArrayToFile(post.ImageData!,post.ImageType!, (int)DefaultImage.BlogPostImage)" alt="Post Images">
+                            </a>
+                        </div>
+                        <div class="post-content">
+                            <div class="post-cat">
+                                <div class="post-cat-list">
+                                    <a class="hover-flip-item-wrapper">
+                                        <span class="hover-flip-item">
+                                            <span data-text="@post.Category!.Name">@post.Category.Name</span>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                            <h4 class="title">
+                                <a asp-controller="BlogPosts" asp-action="Details" asp-route-slug="@post.Slug">
+                                    @post.Title
+                                </a>
+                            </h4>
+                            <div class="post-meta-wrapper">
+                                <div class="post-meta">
+                                    <div class="content">
+                                        <h6 class="post-author-name">
+                                            <a class="hover-flip-item-wrapper">
+                                                <span class="hover-flip-item">
+                                                    <span data-text="@post.Creator?.FullName">@post.Creator?.FullName</span>
+                                                </span>
+                                            </a>
+                                        </h6>
+                                        <ul class="post-meta-list">
+                                            <li>@post.DateCreated.ToString("MMM dd, yyyy")/li>
+                                            <li>@post.Comments!.Count comments</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <ul class="social-share-transparent justify-content-end">
+                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-github"></i></a></li>
+                                    <li><a href="mailTo:369shar@gmail.com"><i class="fas fa-envelope"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Post List  -->
+                }
+                <div>
+                    <div>
+                        page @(Model.PageCount < Model.PageNumber ? 1 : Model.PageNumber) of @Model.PageCount
+                    </div>
+                    <div>
+                        @Html.PagedListPager(Model, pageNum => Url.Action("Details", new {pageNum, id = Model.FirstOrDefault()?.CategoryId}))
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-xl-4 mt_md--40 mt_sm--40">
 
-<div>
-    <h4>Category</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageData)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImageData)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageType)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImageType)
-        </dd>
-    </dl>
+                <partial name="_Sidebar" />
+
+            </div>
+
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<!-- End Post List Wrapper  -->
+<!-- Start Instagram Area  -->
+<div class="axil-instagram-area axil-section-gap bg-color-grey">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h2 class="title">Instagram</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row mt--30">
+            <div class="col-lg-12">
+                <ul class="instagram-post-list">
+                    <li class="single-post">
+                        <a href="#">
+                            <img src="~/assets/images/small-images/instagram-md-01.jpg" alt="Instagram Images">
+                            <span class="instagram-button"><i class="fab fa-instagram"></i></span>
+                        </a>
+                    </li>
+                    <li class="single-post">
+                        <a href="#">
+                            <img src="~/assets/images/small-images/instagram-md-02.jpg" alt="Instagram Images">
+                            <span class="instagram-button"><i class="fab fa-instagram"></i></span>
+                        </a>
+                    </li>
+                    <li class="single-post">
+                        <a href="#">
+                            <img src="~/assets/images/small-images/instagram-md-03.jpg" alt="Instagram Images">
+                            <span class="instagram-button"><i class="fab fa-instagram"></i></span>
+                        </a>
+                    </li>
+                    <li class="single-post">
+                        <a href="#">
+                            <img src="~/assets/images/small-images/instagram-md-04.jpg" alt="Instagram Images">
+                            <span class="instagram-button"><i class="fab fa-instagram"></i></span>
+                        </a>
+                    </li>
+                    <li class="single-post">
+                        <a href="#">
+                            <img src="~/assets/images/small-images/instagram-md-05.jpg" alt="Instagram Images">
+                            <span class="instagram-button"><i class="fab fa-instagram"></i></span>
+                        </a>
+                    </li>
+                    <li class="single-post">
+                        <a href="#">
+                            <img src="~/assets/images/small-images/instagram-md-06.jpg" alt="Instagram Images">
+                            <span class="instagram-button"><i class="fab fa-instagram"></i></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
+<!-- End Instagram Area  -->
