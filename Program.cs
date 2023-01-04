@@ -57,8 +57,17 @@ builder.Services.AddSwaggerGen(c=>
 
 });
 
+builder.Services.AddCors(obj =>
+{
+    obj.AddPolicy("DefaultPolicy",
+        builder => builder.AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader());
+});
 
 var app = builder.Build();
+
+app.UseCors("DefaultPolicy");
 
 //callong managedata
 var scope = app.Services.CreateScope();

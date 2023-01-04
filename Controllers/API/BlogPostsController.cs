@@ -31,15 +31,14 @@ namespace WebBlog.Controllers.API
         /// <returns></returns>
         [HttpGet]
         [ActionName("GetRecentBlogPosts/{num}")]
-        public async Task<ActionResult<IEnumerable<BlogPost>>> GetBlogPosts(int num )
+        public async Task<ActionResult<IEnumerable<BlogPost>>> GetBlogPosts(int num)
         {
             num = num == 0 ? 3 : num;
-            List<BlogPost> blogPosts = await _blogPostService.GetRecentBlogPostsAsync(num);
+            return await _context.BlogPosts.Where(b => b.IsDeleted == false && b.IsPublished == true).OrderByDescending(b => b.DateCreated).Take(num).ToListAsync();
 
-            return blogPosts; 
         }
 
-      
+
         // GET: api/BlogPosts/5
         [HttpGet("{id}")]
         public async Task<ActionResult<BlogPost>> GetBlogPost(int id)
