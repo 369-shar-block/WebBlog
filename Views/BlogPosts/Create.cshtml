@@ -1,10 +1,13 @@
 ﻿@model WebBlog.Models.BlogPost
+@using WebBlog.Services.Interfaces
+@inject IBlogPostService BlogService
 
 @{
     ViewData["Title"] = "Create";
+    var tags = (await BlogService.GetTagsAsync()).OrderBy(t => t.BlogPosts.Count);
 }
 
-
+@*
 <div class="post-single-wrapper axil-section-gap bg-color-white">
     <div class="container">
         <div class="row">
@@ -66,20 +69,133 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
+
+<main class="container mt-5">
+    <form asp-action="Create" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="col-12 col-lg-4">
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Abstract" class="control-label"></label>
+                    <textarea asp-for="Abstract" class="form-control" rows="1"></textarea>
+                    <span asp-validation-for="Abstract" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CategoryId" class="control-label">Category</label>
+                    <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="BlogPostImage" class="control-label">Blog Post Image</label>
+                    <img class="img-fluid border rounded-3 m-2" style="max-height: 250px;" src="~/img/DefaultBlogImage.svg" id="blogImage">
+                    <input asp-for="BlogPostImage" type="file" class="form-control mt-3 pt-2" accept=".png,.jpg,.jpeg,.gif"
+                           onchange="document.getElementById('blogImage').src = window.URL.createObjectURL(this.files[0])" />
+                </div>
+            </div>
+            <div class="col-12 col-lg-8">
+                <div class="form-group">
+                    <label asp-for="Content" class="control-label"></label>
+                    <textarea asp-for="Content" class="form-control editor"></textarea>
+                    <span asp-validation-for="Content" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Tags"></label>
+                    <input class="form-control" type="text" id="tagInput" name="StringTags" autocomplete="off" />
+                    <div class="tagcloud axil-single-widget mt-2" style="display:none">
+                        @foreach (Tag tag in tags)
+                        {
+                            <a onclick="addTag(this)">@tag.Name</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group d-flex justify-content-end mt-3">
+            <div class="form-group form-check d-flex my-auto">
+                <label class="form-check-label my-auto me-4">
+                    <input class="form-check-input me-3" asp-for="IsPublished" />&nbsp; Publish?
+                </label>
+            </div>
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </form>
+    <div class="mt-5">
+        <a asp-action="Index">Back to List</a>
+    </div>
+</main>
 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.3.0/classic/ckeditor.js"></script>
     <script>
         ClassicEditor
             .create(document.querySelector('.editor'))
             .catch(error => {
                 console.error(error);
             });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+
+
+
+            // override the jQuery ":contains" selector to make it case insensitive
+            jQuery.expr[':'].contains = function (a, i, m) {
+                return $(a).text().toUpperCase()
+                    .indexOf(m[3].toUpperCase()) >= 0;
+            };
+
+
+            // searches tag cloud
+            $('#tagInput').focus(function () {
+                $(`.tagcloud`).show(300);
+            });
+
+            $(`form *:not("#tagInput")`).focus(function () {
+                if ($(`.tagcloud`).is(`visible`)) {
+                    $(`.tagcloud`).hide(300);
+                }
+            });
+
+            // searches tag cloud
+            $('#tagInput').keyup(function () {
+                let searchString = $(this).val().split(',').pop().trim();
+                $('.tagcloud > a:not( :contains(' + searchString + ') )').hide();
+                $('.tagcloud > a:contains(' + searchString + ')').show();
+            })
+
+        })
+
+        function addTag(el) {
+            $(`.tagcloud > a`).show();
+
+            let tagName = el.textContent + ',';
+
+            let input = document.getElementById('tagInput');
+            let currentTags = input.value.split(',');
+            currentTags.pop();
+
+
+            if (!currentTags.join().includes(element.textContent)) {
+                // add the full name of the new tag
+                currentTags.push(tagName);
+                input.value = currentTags
+                    .reduce((inputString, currentString) => inputString + ', ' + currentString.trim());
+                input.focus();
+            }
+
+        }
+
     </script>
 
 }
