@@ -59,7 +59,7 @@
                     <!-- Start Post List  -->
                     <div class="content-block post-list-view mt--30">
                         <div class="post-thumbnail">
-                            <a asp-controller="BlogPosts" asp-action="Details" asp-route-id="@post.Id">
+                            <a asp-controller="BlogPosts" asp-action="Details" asp-route-id="@post.Slug">
                                 <img src="@ImageService.ConvertByteArrayToFile(post.ImageData!,post.ImageType!, (int)DefaultImage.BlogPostImage)" alt="Post Images">
                             </a>
                         </div>

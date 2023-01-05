@@ -156,13 +156,9 @@
                             <div class="comment-respond">
                                 <h4 class="title">Post a comment</h4>
                                 <form asp-action="Create" asp-controller="Comments" method="post">
-                                    <input type="hidden" asp-for="Id" name="BlogPostId" />
-                                    <input type="hidden" asp-for="Slug" name="BlogPostId" />
-                                    <p class="comment-notes">
-                                        <span id="email-notes">
-
-                                        </span> <span class="required"></span>
-                                    </p>
+                                    <input type="hidden" value="@Model.Id" name="BlogPostId" />
+                                    <input type="hidden" asp-for="Slug"  />
+                                    
                                     <div class="row row--10">
                                         <div class="col-12">
                                             <div class="form-group">
