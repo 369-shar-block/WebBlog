@@ -141,14 +141,7 @@
                     <!-- End Author  -->
                     <!-- Start Comment Form Area  -->
                     <div class="axil-comment-area">
-                        <div class="axil-total-comment-post">
-                            <div class="title">
-                                <h4 class="mb--0">@Model.Comments.Count() Comments</h4>
-                            </div>
-                            <div class="add-comment-button cerchio">
-                                <a class="axil-button button-rounded" asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@Url.Action("Details", "BlogPosts", new {slug = Model.Slug})" tabindex="0"><span>Add Your Comment</span></a>
-                            </div>
-                        </div>
+
 
                         @if (User.Identity!.IsAuthenticated)
                         {
@@ -157,8 +150,8 @@
                                 <h4 class="title">Post a comment</h4>
                                 <form asp-action="Create" asp-controller="Comments" method="post">
                                     <input type="hidden" value="@Model.Id" name="BlogPostId" />
-                                    <input type="hidden" asp-for="Slug"  />
-                                    
+                                    <input type="hidden" asp-for="Slug" />
+
                                     <div class="row row--10">
                                         <div class="col-12">
                                             <div class="form-group">
@@ -176,6 +169,17 @@
                                 </form>
                             </div>
                             <!-- End Comment Respond  -->
+                        }
+                        else
+                        {
+                            <div class="axil-total-comment-post">
+                                <div class="title">
+                                    <h4 class="mb--0">@Model.Comments.Count() Comments</h4>
+                                </div>
+                                <div class="add-comment-button cerchio">
+                                    <a class="axil-button button-rounded" asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@Url.Action("Details", "BlogPosts", new {slug = Model.Slug})" tabindex="0"><span>Add Your Comment</span></a>
+                                </div>
+                            </div>
                         }
 
 
@@ -204,14 +208,14 @@
                                                     <div class="comment-meta">
                                                         <div class="time-spent">@comment.DateCreated.ToString("MMM dd, yyyy at hh:mm tt")</div>
                                                         @*<div class="reply-edit">
-                                                            <div class="reply">
-                                                                <a class="comment-reply-link hover-flip-item-wrapper" href="#">
-                                                                    <span class="hover-flip-item">
-                                                                        <span data-text="Reply">Reply</span>
-                                                                    </span>
-                                                                </a>
-                                                            </div>
-                                                        </div>*@
+                                                    <div class="reply">
+                                                    <a class="comment-reply-link hover-flip-item-wrapper" href="#">
+                                                    <span class="hover-flip-item">
+                                                    <span data-text="Reply">Reply</span>
+                                                    </span>
+                                                    </a>
+                                                    </div>
+                                                    </div>*@
                                                     </div>
                                                     <div class="comment-text">
                                                         <p class="b2">
@@ -238,9 +242,6 @@
     </div>
 </div>
 <!-- End Post Single Wrapper  -->
-
-
-
 @section scripts{
     <script>
         ClassicEditor
