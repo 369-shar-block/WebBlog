@@ -44,7 +44,7 @@
                 <div class="row justify-content-between align-items-center">
                     <div class="col-xl-3 col-lg-3 col-md-4 col-sm-3 col-12">
                         <div class="logo">
-                            <a href="index.html">
+                            <a asp-action="Index" asp-controller="Home">
                                 <img class="dark-logo" src="~/assets/images/logo/logo-black.png" alt="Blogar logo">
                                 <img class="light-logo" src="~/assets/images/logo/logo-white2.png" alt="Blogar logo">
                             </a>
@@ -58,8 +58,6 @@
                                     <li><a asp-action="Index" asp-controller="Home">Home</a></li>
                                     <li><a asp-controller="BlogPosts" asp-action="Index">BlogPosts</a></li>
                                     <li><a asp-controller="Categories" asp-action="Index">Categories</a></li>
-                                    <li><a asp-controller="Comments" asp-action="Index">Comments</a></li>
-                                    <li><a asp-controller="Tags" asp-action="Index">Tags</a></li>
                                 </ul>
                                 <!-- End Mainmanu Nav -->
                             </nav>
@@ -93,7 +91,7 @@
             <div class="inner">
                 <div class="mobile-menu-top">
                     <div class="logo">
-                        <a href="index.html">
+                        <a <a asp-action="Index" asp-controller="Home">>
                             <img class="dark-logo" src="~/assets/images/logo/logo-black.png" alt="Logo Images">
                             <img class="light-logo" src="~/assets/images/logo/logo-white2.png" alt="Logo Images">
                         </a>
@@ -128,10 +126,7 @@
                         <div class="inner d-flex align-items-center flex-wrap">
                             <h5 class="follow-title mb--0 mr--20">Follow Us</h5>
                             <ul class="social-icon color-tertiary md-size justify-content-start">
-                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                               
                             </ul>
                         </div>
                         <!-- End Post List  -->
@@ -147,48 +142,20 @@
                     <div class="col-lg-9 col-md-12">
                         <div class="copyright-left">
                             <div class="logo">
-                                <a href="index.html">
+                                    <a asp-action="Index" asp-controller="Home">
                                     <img class="dark-logo" src="~/assets/images/logo/logo-black.png" alt="Logo Images">
                                     <img class="light-logo" src="~/assets/images/logo/logo-white2.png" alt="Logo Images">
                                 </a>
                             </div>
-                            <ul class="mainmenu justify-content-start">
-                                <li>
-                                    <a class="hover-flip-item-wrapper" href="#">
-                                        <span class="hover-flip-item">
-                                            <span data-text="Contact Us">Contact Us</span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="hover-flip-item-wrapper" href="#">
-                                        <span class="hover-flip-item">
-                                            <span data-text="Terms of Use">Terms of Use</span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="hover-flip-item-wrapper" href="#">
-                                        <span class="hover-flip-item">
-                                            <span data-text="AdChoices">AdChoices</span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="hover-flip-item-wrapper" href="#">
-                                        <span class="hover-flip-item">
-                                            <span data-text="Advertise with Us">Advertise with Us</span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="hover-flip-item-wrapper" href="#">
-                                        <span class="hover-flip-item">
-                                            <span data-text="Blogar Store">Blogar Store</span>
-                                        </span>
-                                    </a>
-                                </li>
-                            </ul>
+                            <div class="text-center ms-5">
+                                    <ul class="mainmenu justify-content-start">
+                                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                        <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                    </ul>
+                            </div>
+                           
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-12">
@@ -204,6 +171,12 @@
     <!-- End Footer Area  -->
     @*<script src="~/lib/jquery/dist/jquery.min.js"></script>*@
     @* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
+
+
+
+
+
+
 
     <!-- Modernizer JS -->
     <script src="~/assets/js/vendor/modernizr.min.js"></script>
