@@ -1,3 +1,9 @@
+
+
+footer{
+    flex-shrink:0;
+}
+
 html {
   font-size: 14px;
 }
@@ -31,4 +37,33 @@ body {
     width: initial !important;
     height: 1rem !important;
     margin: initial !important;
+}
+
+
+.authorBG {
+    background: #BA8B02; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #181818, #BA8B02); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #181818, #BA8B02); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+#tusharPic {
+    max-width: 50%!important;
+    height: auto!important;
+    border-radius: 50%;
+}
+
+#darkLogo{
+    border-radius:50%;
+}
+
+#lightLogo {
+    border-radius: 50%;
+}
+
+#darkFooter {
+    border-radius: 50%;
+}
+
+#lightFooter {
+    border-radius: 50%;
 }

@@ -10,47 +10,38 @@
 }
 
 <!-- Start Author Area  -->
-<div class="axil-author-area axil-author-banner bg-danger">
+<div class="axil-author-area axil-author-banner authorBG">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="about-author">
-                    <div class="media">
-                        <div class="thumbnail">
-                            <a href="#">
-                                <img src="~/assets/images/post-images/author/author-b1.png" alt="Author Images">
-                            </a>
-                        </div>
-                        <div class="media-body">
-                            <div class="author-info">
-                                <h1 class="title"><a href="#">@Model.FirstOrDefault()?.Creator?.FullName</a></h1>
-                                <span class="b3 subtitle">Full Stack Softwar Developer</span>
-                            </div>
-                            <div class="content">
-                                <p class="b1 description">A 24 year old navigating through life. Here's the part of my life that makes me excited to get up everday'</p>
-                                <ul class="social-share-transparent size-md">
-                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-github"></i></a></li>
-                                    <li><a href="mailto:369shar@gmail.com"><i class="far fa-envelope"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="row p-5">
+
+            <div class="col-lg-4 col-sm-4 col-md-6">
+                <img class="img-fluid" id="tusharPic" src="~/assets/images/post-images/author/profilepic.jfif"/>
             </div>
+
+            <div class="col-lg-8 col-sm-8 col-md-6">
+                <h1 class="title"><a href="#">@Model.FirstOrDefault()?.Creator?.FullName</a></h1>
+                <span class="b3 subtitle">Full Stack Softwar Developer</span><p class="b1 description">A 24 year old navigating through life. Here's the part that gets me excited to start my day every morning :)</p>
+                <ul class="social-share-transparent size-md">
+                    <li><a href="https://github.com/369-shar-block"><i class="fab fa-github"></i></a></li>
+                    <li><a href="mailto:369shar@gmail.com"><i class="far fa-envelope"></i></a></li>
+                    <li><a href="https://www.linkedin.com/in/tushar-saini-948402223/"><i class="fab fa-linkedin-in"></i></a></li>
+                </ul>
+            </div>
+
+          
         </div>
     </div>
 </div>
 <!-- End Author Area  -->
+
+
 <!-- Start Post List Wrapper  -->
 <div class="axil-post-list-area axil-section-gap bg-color-white">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="page-title">
-                    <h2 class="title mb--40">Things I wrote</h2>
+                    <h2 class="title mb--40">Things I have written:</h2>
                 </div>
             </div>
             <div class="col-lg-8 col-xl-8">
@@ -95,18 +86,17 @@
                                     </div>
                                 </div>
                                 <ul class="social-share-transparent justify-content-end">
-                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-github"></i></a></li>
-                                    <li><a href="mailTo:369shar@gmail.com"><i class="fas fa-envelope"></i></a></li>
+                                    <li><a href="https://github.com/369-shar-block"><i class="fab fa-github"></i></a></li>
+                                    <li><a href="mailto:369shar@gmail.com"><i class="far fa-envelope"></i></a></li>
+                                    <li><a href="https://www.linkedin.com/in/tushar-saini-948402223/"><i class="fab fa-linkedin-in"></i></a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <!-- End Post List  -->
                 }
-                <div>
-                    <div>
+                <div class="mt-5" >
+                    <div >
                         page @(Model.PageCount < Model.PageNumber ? 1: Model.PageNumber) of @Model.PageCount
                     </div>
                     <div>
@@ -124,58 +114,3 @@
     </div>
 </div>
 <!-- End Post List Wrapper  -->
-<!-- Start Instagram Area  -->
-@*<div class="axil-instagram-area axil-section-gap bg-color-grey">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="section-title">
-                    <h2 class="title">Instagram</h2>
-                </div>
-            </div>
-        </div>
-        <div class="row mt--30">
-            <div class="col-lg-12">
-                <ul class="instagram-post-list">
-                    <li class="single-post">
-                        <a href="#">
-                            <img src="~/assets/images/small-images/instagram-md-01.jpg" alt="Instagram Images">
-                            <span class="instagram-button"><i class="fab fa-instagram"></i></span>
-                        </a>
-                    </li>
-                    <li class="single-post">
-                        <a href="#">
-                            <img src="~/assets/images/small-images/instagram-md-02.jpg" alt="Instagram Images">
-                            <span class="instagram-button"><i class="fab fa-instagram"></i></span>
-                        </a>
-                    </li>
-                    <li class="single-post">
-                        <a href="#">
-                            <img src="~/assets/images/small-images/instagram-md-03.jpg" alt="Instagram Images">
-                            <span class="instagram-button"><i class="fab fa-instagram"></i></span>
-                        </a>
-                    </li>
-                    <li class="single-post">
-                        <a href="#">
-                            <img src="~/assets/images/small-images/instagram-md-04.jpg" alt="Instagram Images">
-                            <span class="instagram-button"><i class="fab fa-instagram"></i></span>
-                        </a>
-                    </li>
-                    <li class="single-post">
-                        <a href="#">
-                            <img src="~/assets/images/small-images/instagram-md-05.jpg" alt="Instagram Images">
-                            <span class="instagram-button"><i class="fab fa-instagram"></i></span>
-                        </a>
-                    </li>
-                    <li class="single-post">
-                        <a href="#">
-                            <img src="~/assets/images/small-images/instagram-md-06.jpg" alt="Instagram Images">
-                            <span class="instagram-button"><i class="fab fa-instagram"></i></span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>*@
-<!-- End Instagram Area  -->

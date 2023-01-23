@@ -1,0 +1,58 @@
+﻿@{
+}
+@using WebBlog.Enums
+@using WebBlog.Services.Interfaces
+@inject IBlogPostService _BlogPostService
+@inject IImageService _ImageService
+
+<!-- Start Sidebar Area  -->
+<div class="sidebar-inner">
+   
+    <!-- Start Single Widget  -->
+    <div class="axil-single-widget widget widget_search mb--30">
+        <h5 class="widget-title">Search</h5>
+        <form asp-controller="Home" asp-action="SearchIndex">
+            <div class="axil-search form-group">
+                <button type="submit" class="search-button"><i class="fal fa-search"></i></button>
+                <input type="text" class="form-control" placeholder="Search" name="SearchString" id="SearchString">
+            </div>
+        </form>
+    </div>
+    <!-- End Single Widget  -->
+   
+    <!-- Start Single Widget  -->
+    <div class="axil-single-widget widget widget_postlist mb--30">
+        <h5 class="widget-title">Most Recent Posts</h5>
+        <!-- Start Post List  -->
+        <div class="post-medium-block">
+            @foreach (BlogPost blogPost in await _BlogPostService.GetRecentBlogPostsAsync(3))
+            {
+                <!-- Start Single Post  -->
+                <div class="content-block post-medium mb--20">
+                    <div class="post-thumbnail">
+                        <a asp-action="Details" asp-controller="BlogPosts" asp-route-slug="@blogPost.Slug">
+                            <img src="@_ImageService.ConvertByteArrayToFile(blogPost.ImageData!, blogPost.ImageType!, (int)DefaultImage.BlogPostImage)" alt="Post Images">
+                        </a>
+                    </div>
+                    <div class="post-content">
+                        <h6 class="title">
+                            <a asp-action="Details" asp-controller="BlogPosts" asp-route-slug="@blogPost.Slug">
+                                @blogPost.Title
+                            </a>
+                        </h6>
+                        <div class="post-meta">
+                            <ul class="post-meta-list">
+                                <li>@blogPost.DateCreated.ToString("MMM dd, yyyy")</li>
+                                <li>@blogPost.Comments.Count Comments</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <!-- End Single Widget  -->
+    
+</div>
+<!-- End Sidebar Area  -->
+ 
