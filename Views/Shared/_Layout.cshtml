@@ -31,7 +31,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="javascript: void(0);" data-theme="dark" class="setColor dark">
+                    <a href="javascript: void(1);" data-theme="dark" class="setColor dark">
                         <span title="Dark Mode">Dark</span>
                     </a>
                 </li>
@@ -45,8 +45,8 @@
                     <div class="col-xl-3 col-lg-3 col-md-4 col-sm-3 col-12">
                         <div class="logo">
                             <a asp-action="Index" asp-controller="Home">
-                                <img class="dark-logo" src="~/img/one.png" alt="Blogar logo">
-                                <img class="light-logo" src="~/img/two.png" alt="Blogar logo">
+                                <img class="dark-logo" id="dark" src="~/img/1.png" alt="Blogar logo">
+                                <img class="light-logo" id="light" src="~/img/2.png" alt="Blogar logo">
                             </a>
                         </div>
                     </div>
@@ -148,8 +148,8 @@
                             <div class="copyright-left">
                                 <div class="logo">
                                     <a asp-action="Index" asp-controller="Home">
-                                        <img class="dark-logo" src="~/img/one.png" alt="Logo Images">
-                                        <img class="light-logo" src="~/img/two.png" alt="Logo Images">
+                                        <img id="dark1" class="dark-logo" src="~/img/1.png" alt="Logo Images">
+                                        <img id="light1" class="light-logo" src="~/img/2.png" alt="Logo Images">
                                     </a>
                                 </div>
 
@@ -197,7 +197,8 @@
 
         <!-- Main JS -->
         <script src="~/assets/js/main.js"></script>
-        <script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/ckeditor.js"></script>
+        <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+
 
 
         <script src="~/js/site.js" asp-append-version="true"></script>

@@ -12,9 +12,9 @@
 
 @if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
 {
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
+    <h3 class="text-center mt-4">
+        <a asp-action="Create">Create a new blog!</a>
+    </h3>
 }
 
 <div class="axil-post-list-area axil-section-gap bg-color-white">

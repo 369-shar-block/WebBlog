@@ -15,12 +15,14 @@
         <div class="row p-5">
 
             <div class="col-lg-4 col-sm-4 col-md-6">
-                <img class="img-fluid" id="tusharPic" src="~/assets/images/post-images/author/profilepic.jfif"/>
+                <img class="img-fluid" id="tusharPic" src="~/assets/images/post-images/author/profilepic.jfif" />
             </div>
 
             <div class="col-lg-8 col-sm-8 col-md-6">
                 <h1 class="title"><a href="#">@Model.FirstOrDefault()?.Creator?.FullName</a></h1>
-                <span class="b3 subtitle">Full Stack Softwar Developer</span><p class="b1 description">A 24 year old navigating through life. Here's the part that gets me excited to start my day every morning :)</p>
+                <span class="b3 subtitle">Full Stack Softwar Developer</span><p class="b1 description">
+                    A 24-year-old software developer who is currently pursuing graduate studies. With a strong background in software development, I have honed your skills in programming, software design, and development. My passion for technology and innovation has led me to pursue higher education, where I am gaining a deeper understanding of software engineering principles, emerging technologies, and best practices in the field. Apart from software development, I enjoy hiking, playing guitar and volunteering for Live Like Lou foundation. Feel free to check my <a class="fw-bold text-decoration-underline" href="https://tusharsaini.netlify.app/">portfolio</a> to see my other projects :)
+                    </p>
                 <ul class="social-share-transparent size-md">
                     <li><a href="https://github.com/369-shar-block"><i class="fab fa-github"></i></a></li>
                     <li><a href="mailto:369shar@gmail.com"><i class="far fa-envelope"></i></a></li>
@@ -28,20 +30,18 @@
                 </ul>
             </div>
 
-          
+
         </div>
     </div>
 </div>
 <!-- End Author Area  -->
-
-
 <!-- Start Post List Wrapper  -->
 <div class="axil-post-list-area axil-section-gap bg-color-white">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="page-title">
-                    <h2 class="title mb--40">Things I have written:</h2>
+                    <h2 class="title mb--40">Blogs I have written:</h2>
                 </div>
             </div>
             <div class="col-lg-8 col-xl-8">
@@ -57,18 +57,19 @@
                         <div class="post-content">
                             <div class="post-cat">
                                 <div class="post-cat-list">
-                                    <a class="hover-flip-item-wrapper">
-                                        <span class="hover-flip-item">
-                                            <span data-text="@post.Category!.Name">@post.Category.Name</span>
-                                        </span>
-                                    </a>
+
+                                    <span class="hover-flip-item">
+                                        <a class="hover-flip-item" asp-action="Details" asp-controller="Categories" asp-route-id="@post.Category!.Id" class="inner">@post.Category!.Name</a>
+                                        @* *@
+                                    </span>
+
                                 </div>
                             </div>
                             <h4 class="title">
                                 <a asp-controller="BlogPosts" asp-action="Details" asp-route-slug="@post.Slug">
                                     @post.Title
                                 </a>
-                            </h4> 
+                            </h4>
                             <div class="post-meta-wrapper">
                                 <div class="post-meta">
                                     <div class="content">
@@ -95,9 +96,9 @@
                     </div>
                     <!-- End Post List  -->
                 }
-                <div class="mt-5" >
-                    <div >
-                        page @(Model.PageCount < Model.PageNumber ? 1: Model.PageNumber) of @Model.PageCount
+                <div class="mt-5">
+                    <div>
+                        page @(Model.PageCount < Model.PageNumber ? 1 : Model.PageNumber) of @Model.PageCount
                     </div>
                     <div>
                         @Html.PagedListPager(Model, pageNum => Url.Action("Index", new {pageNum}))

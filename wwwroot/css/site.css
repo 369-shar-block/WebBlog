@@ -19,6 +19,10 @@ html {
   min-height: 100%;
 }
 
+.ck-editor__editable_inline {
+    min-height: 400px;
+}
+
 body {
   margin-bottom: 60px;
 }
@@ -28,7 +32,7 @@ body {
 }
 
 .ck-editor__editable_inline {
-    min-height: 600px;
+    min-height: 400px;
 }
 
 .form-check-input {
@@ -66,4 +70,24 @@ body {
 
 #lightFooter {
     border-radius: 50%;
+}
+
+#light{
+    max-height:150px;
+    max-width:200px;
+}
+
+#dark{
+    max-height:150px;
+    max-width:200px;
+}
+
+#light1{
+    max-height: 150px;
+    max-width: 200px;
+}
+
+#dark1{
+    max-height: 150px;
+    max-width: 200px;
 }
