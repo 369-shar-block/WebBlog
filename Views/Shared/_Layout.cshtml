@@ -57,7 +57,7 @@
                                 <ul class="mainmenu">
                                     <li><a asp-action="Index" asp-controller="Home">Home</a></li>
                                     <li><a asp-controller="BlogPosts" asp-action="Index">BlogPosts</a></li>
-                                 
+
                                     @if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
                                     {
                                         <li><a asp-controller="Categories" asp-action="Index">Categories</a></li>
@@ -101,8 +101,8 @@
                 <div class="mobile-menu-top">
                     <div class="logo">
                         <a <a asp-action="Index" asp-controller="Home">>
-                            <img class="dark-logo" src="~/assets/images/logo/logo-black.png" alt="Logo Images">
-                            <img class="light-logo" src="~/assets/images/logo/logo-white2.png" alt="Logo Images">
+                            <img class="dark-logo" id="dark" src="~/img/1.png" alt="Blogar logo">
+                                <img class="light-logo" id="light" src="~/img/2.png" alt="Blogar logo">
                         </a>
                     </div>
                     <div class="mobile-close">
@@ -114,9 +114,6 @@
                 <ul class="mainmenu">
                     <li><a asp-action="Index" asp-controller="Home">Home</a></li>
                     <li><a asp-controller="BlogPosts" asp-action="Index">BlogPosts</a></li>
-                    <li><a asp-controller="Categories" asp-action="Index">Categories</a></li>
-                    <li><a asp-controller="Comments" asp-action="Index">Comments</a></li>
-                    <li><a asp-controller="Tags" asp-action="Index">Tags</a></li>
                     <partial name="_LoginPartial" />
                 </ul>
             </div>

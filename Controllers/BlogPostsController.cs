@@ -246,6 +246,7 @@ namespace WebBlog.Controllers
                 return Problem("Entity set 'ApplicationDbContext.BlogPosts'  is null.");
             }
             var blogPost = await _context.BlogPosts.FindAsync(id);
+
             if (blogPost != null)
             {
                 blogPost.IsDeleted= true;

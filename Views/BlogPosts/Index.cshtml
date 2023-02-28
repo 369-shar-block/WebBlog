@@ -28,62 +28,66 @@
             <div class="col-lg-8 col-xl-8">
                 @foreach (BlogPost post in Model)
                 {
-                    <!-- Start Post List  -->
-                    <div class="content-block post-list-view mt--30">
-                        <div class="post-thumbnail">
-                            <a asp-controller="BlogPosts" asp-action="Details" asp-route-slug="@post.Slug">
-                                <img src="@ImageService.ConvertByteArrayToFile(post.ImageData!,post.ImageType!, (int)DefaultImage.BlogPostImage)" alt="Post Images">
-                            </a>
-                        </div>
-                        <div class="post-content">
-                            <div class="post-cat">
-                                <div class="post-cat-list">
-                                    <a class="hover-flip-item-wrapper">
-                                        <span class="hover-flip-item">
-                                            <span data-text="@post.Category!.Name">@post.Category.Name</span>
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
-                            <h4 class="title">
+                    @if(post.IsPublished == true)
+                    {
+                        <!-- Start Post List  -->
+                        <div class="content-block post-list-view mt--30">
+                            <div class="post-thumbnail">
                                 <a asp-controller="BlogPosts" asp-action="Details" asp-route-slug="@post.Slug">
-                                    @post.Title
+                                    <img src="@ImageService.ConvertByteArrayToFile(post.ImageData!,post.ImageType!, (int)DefaultImage.BlogPostImage)" alt="Post Images">
                                 </a>
-                            </h4>
-                            
-                            <a asp-action="Details" asp-route-slug="@post.Slug">Details</a>
-                            @if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
-                            {
-                                <span>|</span>
-                                <a asp-action="Edit" asp-route-id="@post.Id">Edit</a>
-                                <span> |</span>
-                                <a asp-action="Delete" asp-route-id="@post.Id">Delete</a>
-                            }
-                            <div class="post-meta-wrapper">
-                                <div class="post-meta">
-                                    <div class="content">
-                                        <h6 class="post-author-name">
-                                            <a class="hover-flip-item-wrapper">
-                                                <span class="hover-flip-item">
-                                                    <span data-text="@post.Creator?.FullName">@post.Creator?.FullName</span>
-                                                </span>
-                                            </a>
-                                        </h6>
-                                        <ul class="post-meta-list">
-                                            <li>@post.DateCreated.ToString("MMM dd, yyyy")</li>
-                                            <li>@post.Comments!.Count comments</li>
-                                        </ul>
+                            </div>
+                            <div class="post-content">
+                                <div class="post-cat">
+                                    <div class="post-cat-list">
+                                        <a class="hover-flip-item-wrapper">
+                                            <span class="hover-flip-item">
+                                                <span data-text="@post.Category!.Name">@post.Category.Name</span>
+                                            </span>
+                                        </a>
                                     </div>
                                 </div>
-                                <ul class="social-share-transparent justify-content-end">
-                                    <li><a href="https://github.com/369-shar-block"><i class="fab fa-github"></i></a></li>
-                                    <li><a href="mailto:369shar@gmail.com"><i class="far fa-envelope"></i></a></li>
-                                    <li><a href="https://www.linkedin.com/in/tushar-saini-948402223/"><i class="fab fa-linkedin-in"></i></a></li>
-                                </ul>
+                                <h4 class="title">
+                                    <a asp-controller="BlogPosts" asp-action="Details" asp-route-slug="@post.Slug">
+                                        @post.Title
+                                    </a>
+                                </h4>
+
+                                <a asp-action="Details" asp-route-slug="@post.Slug">Details</a>
+                                @if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
+                                {
+                                    <span>|</span>
+                                    <a asp-action="Edit" asp-route-id="@post.Id">Edit</a>
+                                    <span> |</span>
+                                    <a asp-action="Delete" asp-route-id="@post.Id">Delete</a>
+                                }
+                                <div class="post-meta-wrapper">
+                                    <div class="post-meta">
+                                        <div class="content">
+                                            <h6 class="post-author-name">
+                                                <a class="hover-flip-item-wrapper">
+                                                    <span class="hover-flip-item">
+                                                        <span data-text="@post.Creator?.FullName">@post.Creator?.FullName</span>
+                                                    </span>
+                                                </a>
+                                            </h6>
+                                            <ul class="post-meta-list">
+                                                <li>@post.DateCreated.ToString("MMM dd, yyyy")</li>
+                                                <li>@post.Comments!.Count comments</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <ul class="social-share-transparent justify-content-end">
+                                        <li><a href="https://github.com/369-shar-block"><i class="fab fa-github"></i></a></li>
+                                        <li><a href="mailto:369shar@gmail.com"><i class="far fa-envelope"></i></a></li>
+                                        <li><a href="https://www.linkedin.com/in/tushar-saini-948402223/"><i class="fab fa-linkedin-in"></i></a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- End Post List  -->
+                        <!-- End Post List  -->
+                    }
+                    
                 }
                
             </div>
